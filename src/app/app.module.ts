@@ -11,6 +11,7 @@ import { GameComponent } from './pages/game/game.component';
 import { BjChartsComponent } from './pages/help/bj-charts/bj-charts.component';
 import { GameGuideComponent } from './pages/help/game-guide/game-guide.component';
 import { OptionsComponent } from './pages/help/options/options.component';
+import { DialogBoxComponent } from './models/dialog-box/dialog-box.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { OptionsComponent } from './pages/help/options/options.component';
     GameComponent,
     BjChartsComponent,
     GameGuideComponent,
-    OptionsComponent
+    OptionsComponent,
+    DialogBoxComponent
   ],
   imports: [
     BrowserModule,

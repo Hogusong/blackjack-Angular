@@ -13,6 +13,7 @@ export class PlayerNewComponent implements OnInit {
   playerName: string;
   players: PLAYER[];
   amount: number = 100;
+  dialogBox = null;
 
   constructor(private baseService: BaseService,
               private playerService: PlayerService) { }
@@ -24,7 +25,10 @@ export class PlayerNewComponent implements OnInit {
   backToMain() {
     if (this.players.length > 0) this.baseService.setUIconfig(this.UIC);
     else {
-      //  Pop an alert box
+      this.dialogBox = {
+        open: true,
+        markup: `<p>You have to add a player to start GAME.</p>`
+      }
     }
   }
 
@@ -37,7 +41,10 @@ export class PlayerNewComponent implements OnInit {
       this.playerName = '';
       this.amount = 100;
     } else {
-      // Pop an alert box
+      this.dialogBox = {
+        open: true,
+        markup: `<p>Name was taken already. Try another name!</p>`
+      }
     }
   }
 }

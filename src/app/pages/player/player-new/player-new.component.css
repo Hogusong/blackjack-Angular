@@ -1,0 +1,14 @@
+label { margin-left: 20px;}
+#btn-new {  text-align: left;  font-size: 16px;  }
+.new-input input {
+  width: 150px;
+}
+h4 { padding-left: 10px; text-align: left;  }
+
+#player-list {
+  width: 340px;
+}
+
+@media (max-width: 420px) {
+  #btn-new {  text-align: center;  }
+}

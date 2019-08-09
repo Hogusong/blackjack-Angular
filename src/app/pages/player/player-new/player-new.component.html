@@ -1,9 +1,9 @@
 <nav class="nav-bar bg-primary">
     <div class="row">
-      <div class="icon-arrow col-xs-3">
+      <div class="icon-arrow col-xs-2">
         <span class="glyphicon glyphicon-arrow-left" (click)="backToMain()"></span>
       </div>
-      <h4 class="col-xs-9">Add New Players</h4>
+      <h4 class="col-xs-10 c-orange">Add New Players</h4>
     </div>
   </nav>
   
@@ -33,3 +33,6 @@
     </table>
   </div>
     
+  <app-dialog-box *ngIf="dialogBox?.open" 
+                  [markup]="dialogBox.markup"
+                  (onExit)="dialogBox.open = $event"></app-dialog-box>
