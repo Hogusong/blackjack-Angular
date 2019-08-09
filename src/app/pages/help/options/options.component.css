@@ -1,0 +1,23 @@
+#options {
+  width: 400px;
+  background: bisque;
+  margin-top: 100px;
+  padding: 20px 10px;
+  font-size: 18px;
+}
+
+#result-msg { text-align: center; color: red; }
+.input-field{  margin: 0 0 5px 20px;  }
+.auto-play  {  margin-top: 10px;  }
+.config-option p {  margin-bottom: 5px;  }
+.config-option input {  width: 80px;  }
+#config-btns {
+  text-align: center;
+}
+
+#d-delay { margin-top: 0; margin-left: 15px; }
+.error {
+  margin-left: 40px;
+  color: red;
+  font-size: 14px;
+}
