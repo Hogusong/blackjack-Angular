@@ -44,6 +44,8 @@ th, td {
   padding: 5px 18px;
 }
 
+#player-list {  width: 340px;  }
+
 .c-red  {  color: red;  }
 .c-blue {  color: blue; }
 .c-black {  color: black;  }

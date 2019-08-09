@@ -32,7 +32,14 @@ export class MenuComponent implements OnInit, OnDestroy {
     }
   }
   
-  openRemove() {}
+  openRemove() {
+    // Now allow while playing the game.
+    if (!this.UIC.gameStarted) {
+      const config = this.baseService.getAllFalseUIconfig();
+      config.openRemove = true;
+      this.baseService.setUIconfig(config);
+    }
+  }
 
   openGameGuide() {}
 

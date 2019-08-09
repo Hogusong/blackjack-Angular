@@ -1,3 +1,22 @@
-<p>
-  player-remove works!
-</p>
+<nav class="nav-bar bg-primary">
+    <div class="row">
+      <div class="icon-arrow col-xs-2">
+        <span class="glyphicon glyphicon-arrow-left" (click)="backToPreviousUI()"></span>
+      </div>
+      <h4 class="col-xs-10 c-orange">Remove Players</h4>
+    </div>
+  </nav>
+    
+  <div id="player-list">
+    <h5 class="sub-title">Players List &nbsp;<span>( {{players.length}} players )</span></h5>
+    <table>
+      <tr><th>Name</th><th>in Pocket</th><th>Delete</th></tr>
+      <tr *ngFor="let p of players; let i = index">
+        <td>{{p.getName()}}</td>
+        <td>${{p.getAmount()}}</td>
+        <td><a class="c-red" (click)="removePlayer(i)">X</a></td>
+      </tr>
+    </table>
+    <button class="btns" (click)="backToPreviousUI()">Return to Game</button>
+  </div>
+  
