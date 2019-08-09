@@ -14,6 +14,14 @@ export class OptionsComponent implements OnInit {
   ngOnInit() {
   }
 
+  valueChanged() {
+
+  }
+  
+  resetDefaultValue() {
+
+  }
+
   backToPreviousUI() {
     this.baseService.setUIconfig(this.UIC);
   }

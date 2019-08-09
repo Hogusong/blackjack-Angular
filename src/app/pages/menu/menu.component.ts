@@ -53,7 +53,11 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.baseService.setUIconfig(config);
   }
 
-  openOptions() {}
+  openOptions() {
+    const config = this.baseService.getAllFalseUIconfig();
+    config.openOptions = true;
+    this.baseService.setUIconfig(config);
+  }
 
   ngOnDestroy() {
     this.uicSubscription.unsubscribe();

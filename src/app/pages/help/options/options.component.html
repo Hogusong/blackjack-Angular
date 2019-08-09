@@ -1,3 +1,103 @@
-<p>
-  options works!
-</p>
+<nav class="nav-bar bg-primary">
+    <div class="row">
+      <div class="icon-arrow col-xs-3">
+        <span class="glyphicon glyphicon-arrow-left" (click)="backToPreviousUI()"></span>
+      </div>
+      <h4 class="col-xs-9">Set Player's Options</h4>
+    </div>
+  </nav>
+  
+  <div id="options">
+    <form [formGroup]="myForm" (change)="valueChanged()">
+      <div class="config-option">
+        <div class="input-field">
+          <p>1. How to show the Game Result ?</p>
+          <div>
+            <input type="radio" formControlName="howToShow" value="inBox">
+            <span>Show in a Box</span>
+          </div>
+          <div>
+            <input type="radio" formControlName="howToShow" value="delay">
+            <span>Delay Browser</span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="config-option">
+        <div class="input-field">
+          <span>2. Delay Time : </span>
+          <input type="number" formControlName="delayTime"> seconds
+        </div>
+        <p class="error" *ngIf="myForm.get('delayTime').invalid">Delay time can be between 1 and 7.</p>
+      </div>
+  
+      <div class="config-option">
+        <div class="input-field auto-play">
+          <span>3 Restart a new Game automatically ? </span>
+          <div>
+            <input type="radio" formControlName="autoPlay" value="Yes"><span>Yes</span>
+            <input type="radio" formControlName="autoPlay" value="No"><span>No</span>
+          </div>
+        </div>
+      </div>
+    
+      <div class="config-option">
+        <div class="input-field">
+          <p>4. Keep last player as In-Play ?</p>
+          <div>
+            <input type="radio" formControlName="setPlayer" value="in play">
+            <span>Yes, keep as In-Play.</span>
+          </div>
+          <div>
+            <input type="radio" formControlName="setPlayer" value="stay out">
+            <span>No, reset all as Stay-Out.</span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="config-option">
+        <div class="input-field">
+          <p>5. Keep last bet amount for the Game ?</p>
+          <div>
+            <input type="radio" formControlName="keepBet" value="keep">
+            <span>Yes, keep it.</span>
+          </div>
+          <div>
+            <input type="radio" formControlName="keepBet" value="reset">
+            <span>No, reset minimum Bet.</span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="config-option">
+        <div class="input-field">
+          <span>6. Minimum Betting (2&up) $</span>
+          <input type="number" formControlName="minBet">
+        </div>
+        <p class="error" *ngIf="myForm.get('minBet').invalid">Minimum Betting should be bigger than 1.</p>
+      </div>
+  
+      <div class="config-option">
+        <div class="input-field">
+          <span>7. How many Decks (4 - 10) </span>
+          <input type="number" formControlName="decks">
+        </div>
+        <p class="error" *ngIf="myForm.get('decks').invalid">Deck of cards can be between 4 and 10.</p>
+      </div>
+  
+      <div class="config-option">
+        <div class="input-field">
+          <p>8. Delay time for dealer's drawing card ?</p>
+          <input id="d-delay" type="number" formControlName="delay4dealer"> seconds
+        </div>
+        <p class="error" *ngIf="myForm.get('delay4dealer').invalid">Delay time can be between 1 and 7.</p>
+      </div>
+    
+      <div id="result-msg">{{ message }}</div>
+      <div id="config-btns">
+        <button class="btns" (click)="resetDefaultValue()">Reset Default</button>
+        <button class="btns" (click)="backToPreviousUI()">Exit</button>
+      </div>
+    </form>
+  </div>
+    
