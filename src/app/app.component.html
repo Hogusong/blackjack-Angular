@@ -1,5 +1,5 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<nav class="nav-bar bg-primary">
+<nav class="nav-bar bg-primary" *ngIf="UIC.openMenu">
   <div class="header-bar">
     <h4 class="game-header">Enjoy&nbsp; Blackjack !</h4>
     <div class="dropdown"><span class="dropdown-toggle glyphicon glyphicon-menu-hamburger"
@@ -11,31 +11,31 @@
   </div>
 </nav>
 
-<div class="container">
+<div class="container" *ngIf="UIC.selectPlayers">
     <app-player-list></app-player-list>  
   </div>
   
-  <div class="container">
-    <app-player-new></app-player-new>
+  <div class="container" *ngIf="UIC.openAddNew">
+    <app-player-new [UIC]="oldUIC"></app-player-new>
   </div>
   
-  <div class="container">
-    <app-player-remove></app-player-remove>
+  <div class="container" *ngIf="UIC.openRemove">
+    <app-player-remove [UIC]="oldUIC"></app-player-remove>
   </div>
   
-  <div class="container">
+  <div class="container" *ngIf="UIC.gameStarted">
     <app-game></app-game>
   </div>
   
-  <div class="container">
-    <app-game-guide></app-game-guide>
+  <div class="container" *ngIf="UIC.openGameGuide">
+    <app-game-guide [UIC]="oldUIC"></app-game-guide>
   </div>
   
-  <div class="container">
-      <app-bj-charts></app-bj-charts>
+  <div class="container" *ngIf="UIC.openBJCharts">
+      <app-bj-charts [UIC]="oldUIC"></app-bj-charts>
     </div>
     
-  <div class="container">
-    <app-options></app-options>
+  <div class="container" *ngIf="UIC.openBJCharts">
+    <app-options [UIC]="oldUIC"></app-options>
   </div>
   
