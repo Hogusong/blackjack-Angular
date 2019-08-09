@@ -41,9 +41,17 @@ export class MenuComponent implements OnInit, OnDestroy {
     }
   }
 
-  openGameGuide() {}
+  openGameGuide() {
+    const config = this.baseService.getAllFalseUIconfig();
+    config.openGameGuide = true;
+    this.baseService.setUIconfig(config);
+  }
 
-  openBJCharts() {}
+  openBJCharts() {
+    const config = this.baseService.getAllFalseUIconfig();
+    config.openBJCharts = true;
+    this.baseService.setUIconfig(config);
+  }
 
   openOptions() {}
 
