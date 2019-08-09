@@ -1,3 +1,35 @@
-<p>
-  player-new works!
-</p>
+<nav class="nav-bar bg-primary">
+    <div class="row">
+      <div class="icon-arrow col-xs-3">
+        <span class="glyphicon glyphicon-arrow-left" (click)="backToMain()"></span>
+      </div>
+      <h4 class="col-xs-9">Add New Players</h4>
+    </div>
+  </nav>
+  
+  <div class="new-input">
+    <h5 class="sub-title">Add New Players</h5>
+    <div>
+      <label class="c-blue">Player's Name </label>
+      <input type="text" [(ngModel)]="playerName" id="name" maxlength="8"><br>
+      <label class="c-blue">Pocket Amt. $&nbsp;</label>
+      <input type="number" [(ngModel)]="amount" id="amount">
+    </div>
+    <div id="btn-new">
+      <button class="btns" (click)="backToMain()">Cancel</button>
+      <button class="btns" (click)="saveNewPlayer()">Submit</button>
+    </div>
+  </div>
+  
+  <div id="player-list">
+    <h5 class="sub-title">Players List &nbsp;<span>( {{players.length}} players )</span></h5>
+    <table>
+      <tr><th>Name</th><th>in Pocket</th><th>Status</th></tr>
+      <tr *ngFor="let p of players; let i = index">
+        <td>{{p.getName()}}</td>
+        <td>${{p.getAmount()}}</td>
+        <td>{{p.getInPlay() ? 'In Play' : 'Stay Out'}}</td>
+      </tr>
+    </table>
+  </div>
+    
