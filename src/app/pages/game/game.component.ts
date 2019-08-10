@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import CARD from 'src/app/models/card';
+import PLAYER from 'src/app/models/player';
 import { BaseService } from 'src/app/providers/base.service';
 import { PlayerService } from 'src/app/providers/player.service';
 import { CardService } from 'src/app/providers/card.service';
-import CARD from 'src/app/models/card';
-import PLAYER from 'src/app/models/player';
 
 @Component({
   selector: 'app-game',
@@ -11,7 +11,8 @@ import PLAYER from 'src/app/models/player';
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit {
-  config: any;
+  config: any;              // to carry game configuration
+  dialogBox = null;
   dealer: PLAYER;
   d_onHand: CARD[];         // to contain dealer's cards
   cards: CARD[];            // to carry the current decks
@@ -27,8 +28,8 @@ export class GameComponent implements OnInit {
   askInsurance = false;     // to open the asking box, when dealer's 1st card = 'A'.
 
   constructor(private playerService: PlayerService,
-    private baseService: BaseService,
-    private cardService: CardService) { }
+              private baseService: BaseService,
+              private cardService: CardService) { }
 
   ngOnInit() {
     this.config = this.baseService.getConfig();

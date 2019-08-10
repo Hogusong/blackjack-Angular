@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import CARD from '../models/card';
+import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,13 +8,13 @@ import CARD from '../models/card';
 export class CardService {
   private cards: CARD[];
 
-  constructor() { 
+  constructor(private baseService: BaseService) { 
     this.createCards();
   }
 
   createCards() {
     let cards = [];
-    const noOfDecks = 6;
+    const noOfDecks = this.baseService.getConfig().howManyDecks;
     for (let i = 0; i < noOfDecks; i++) {
       cards = [...cards, ...buildDeck()]
     }  

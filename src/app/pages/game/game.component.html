@@ -1,3 +1,92 @@
-<p>
-  game works!
-</p>
+<section id="dealer-hand">
+    <div *ngIf="!openDealerCards">
+      <h5 class="sub-title">Dealer's Hand</h5>
+      <div class="card-images">
+          <img src="assets/images/cards/gray_back.png" alt="Back of a Card">
+          <img [src]="dealer.getOnHand()[0].getImagePath()" alt="">
+      </div>
+    </div>
+  
+    <div *ngIf="openDealerCards">
+      <h5 class="sub-title">Dealer's Hand <span>( Dealer has : {{dealer?.getScore()}} )</span></h5>
+      <div class="card-images">
+        <div *ngFor="let card of dealer.getOnHand()">
+          <img [src]="card.getImagePath()" alt="card.getKey()">
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="player-hand">
+    <h5 class="sub-title">Players Hands <span>( {{players?.length}} players )</span></h5>
+    <div *ngFor="let p of players; let i=index">
+      <div class="player-info">
+        <span>{{p.getName()}}</span>
+        <span>Bet amt $ {{p.getBetting()}}</span>
+        <span>Curr. Score : {{p.getScore()}}</span><br>
+        <p>In pocket --- $ {{p.getAmount()}}</p>
+      </div>
+  
+      <div class="card-images">
+        <div *ngFor="let card of p.getOnHand()">
+          <img [src]="card.getImagePath()" alt="card.getKey()">
+        </div>
+      </div>
+      <p class="message" *ngIf="!p.getCanDraw()">{{p.getPrevResult()}}</p>
+      <div id="btn-game">
+        <button class="btns" (click)="splitCards(i)">Split</button>
+        <button class="btns" (click)="doubleDown(i)">Double</button>
+        <button class="btns" (click)="drawOneMore(i)">Hit</button>
+        <button class="btns" (click)="stayInGame(i)">Stay</button>
+      </div>
+    </div>
+  </section>  
+  
+  <!-- The Modal : start -->
+  <div id="modal-start" class="modal" *ngIf="showGameResult">
+    <div class="modal-body">
+      <h4>Result of the Game</h4>
+      <hr>
+      <p>Dealer's Score : 
+        <span>{{dealer.getScore()}}</span>
+        <span>&nbsp;({{cardDetail()}})</span>
+      </p>
+      <p>Players Table</p>
+      <table>
+        <tr><th>Name</th><th>Betting</th><th>Score</th><th>Result</th></tr>
+        <tr *ngFor="let p of players">
+          <td>{{p.getName()}}</td>
+          <td>$ {{p.getBetting()}}</td>
+          <td>{{p.getScore()}}</td>
+          <td>{{p.getPrevResult()}}</td>
+        </tr>
+      </table>
+      <button class="btns" (click)="backToGame()">Back to a New Game</button>
+    </div>
+  </div>
+  
+  <!-- The Modal : start -->
+  <div id="modal-start" class="modal" *ngIf="askInsurance">
+    <div class="modal-body">
+      <h4>Get Insurance</h4>
+      <hr>
+      <p>Will you buy Insurance for Dealer's Blackjack.</p>
+      <P>If you click 'No', it will turn to 'Yes'.</P>
+      <table>
+        <tr><th>Name</th><th>Betting</th><th>Score</th><th>Insured</th></tr>
+        <tr *ngFor="let I of insurance; let i = index">
+          <td>{{I.name}}</td>
+          <td>$ {{I.betting}}</td>
+          <td>{{I.score}}</td>
+          <td><a (click)="I.insured = !I.insured">{{I.insured ? 'Yes' : 'No'}}</a></td>
+        </tr>
+      </table>
+      <button class="btns" (click)="submitInsurance()">Submit</button>
+    </div>
+  </div>
+  
+  <!-- Alert Box -->
+  <app-dialog-box *ngIf="dialogBox?.open" 
+                  [markup]="dialogBox.markup"
+                  (onExit)="dialogBox.open = $event"></app-dialog-box>
+  

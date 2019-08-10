@@ -1,4 +1,3 @@
-// import { getConfiguration } from '../controller/help';
 import CARD from './card';
 
 export default class PLAYER {
