@@ -64,5 +64,84 @@ export class GameComponent implements OnInit {
     }
   }
 
-  startGame() {}
+  startGame() {
+    // Check Blackjack for dealer's hand first.
+    this.dealerBlackjack = this.dealer.hasBlackjack();
+    if (this.dealerBlackjack) {
+      // Generate game result by checking player's hand.
+      this.gameResult = this.players.map(p=> {
+        if (p.hasBlackjack()) {
+          p.evenHand();           // Both dealer & player have Blackjack.
+          return 0;
+        } else {
+          p.looseHand();          // Dealer has Blackjack but player does not have.
+          return -1;
+        }
+      });
+      // Just open dealer's hand without drawing a card.
+      this.openDealerCards = true;
+      this.updateGameResult();
+    } else {
+      // Prepare to let player start game.
+      this.gameResult = this.players.map(p => {
+        if (p.hasBlackjack()) {
+          p.blackjack();        // reset canDrawCard = false
+          return 1;             // Player win cause player has a Blackkjack
+        }
+        return 0;               // Let player choose one of the game options.
+      });
+      this.drawPlayerCard = true;
+      this.getCurrIndex();      // Find next available player and set the index up.
+    }
+  }
+
+  getCurrIndex() {
+    // Find the first player who is ready to decide for his/her hand.
+    this.currIndex = this.players.findIndex(p => p.getCanDraw());
+    if (this.currIndex < 0) {
+      this.drawPlayerCard = false;
+      if (this.gameResult.includes(0)) {    // '0' mean player need to see dealer's
+        // Players are waiting for dealer to draw cards.
+        this.openDealerCards = true;
+        this.drawDealerCards();
+      } else {
+        // Dealer does not need to draw a card because all players got the RESULT.
+        this.openDealerCards = true;
+        this.updateGameResult();
+      }
+    }
+  }
+
+  splitCards(i) {
+    console.log('split', i)
+  }
+
+  doubleDown(i) {
+    console.log('double down', i)
+  }
+
+  drawOneMore(i) {
+    console.log('hit', i)
+  }
+
+  stayInGame(i) {
+    console.log('stay', i)
+  }
+
+  drawDealerCards() {
+
+  }
+
+  submitInsurance() {
+    this.askInsurance = false;
+    this.startGame();
+  }
+
+  compareScore() {
+
+  }
+
+  // Update the result of the game and the insurance to the storage.
+  updateGameResult() {
+  }
 }
