@@ -4,6 +4,8 @@ import PLAYER from 'src/app/models/player';
 import { BaseService } from 'src/app/providers/base.service';
 import { PlayerService } from 'src/app/providers/player.service';
 import { CardService } from 'src/app/providers/card.service';
+import { timer } from 'rxjs';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-game',
@@ -208,8 +210,24 @@ export class GameComponent implements OnInit {
     }
   }
 
+  // Draw card for dealer when dealer's score is under 17.
   drawDealerCards() {
-
+    this.drawDealerCard = this.dealer.getScore() < 17;
+    let count = 0;
+    // Open dealer's hand and draw a card slowly by delay time until the score reach 17.
+    timer(0, this.config.delay4dealer).pipe(takeWhile(() => this.drawDealerCard))
+      .subscribe(() => {
+        if (count++ > 0) {
+          this.cardService.drawCard(this.dealer);
+          this.d_onHand = this.dealer.getOnHand();
+          // After drew a card, chect dealer's score to stop drawing.
+          if (this.dealer.getScore() > 16) {
+            this.drawDealerCard = false;
+            this.compareScore();
+          }
+        }
+      })
+    if (!this.drawDealerCard) this.compareScore();
   }
 
   submitInsurance() {
@@ -217,11 +235,47 @@ export class GameComponent implements OnInit {
     this.startGame();
   }
 
+  // Depense on dealer's score, Players will have the RESULT.
   compareScore() {
-
+    const limit = this.dealer.getScore() > 21 ? 0 : this.dealer.getScore();
+    this.gameResult.forEach((r,i) => {
+      if (r === 0) {
+        if (this.players[i].getScore() > limit) {
+          this.gameResult[i] = 1;
+          this.players[i].winHand();
+        } else if (this.players[i].getScore() < limit) {
+          this.gameResult[i] = -1;
+          this.players[i].looseHand();
+        } else this.players[i].evenHand();
+      }
+    })
+    this.updateGameResult();
   }
 
   // Update the result of the game and the insurance to the storage.
   updateGameResult() {
+    this.playerService.updateInsurance(this.insurance, this.dealerBlackjack);
+    this.playerService.updateGameResult(this.players, this.gameResult);
+    if (this.config.showResult) {
+      // Show the result in the dialog box.
+      this.showGameResult = true;
+    } else {
+      // Freeze Browser for the delay time before render the openning UI.
+      setTimeout(() => {
+        // Retuen to the openning UI.
+        this.baseService.setUIconfig(this.baseService.getDefaultUIconfig());
+      }, this.config.delay)
+    }
+  }
+
+  // Show all dealer's cards
+  cardDetail() {
+    return this.dealer.getOnHand().map(c => c.getKey()).join(', ');
+  }
+
+  // After show the game result, return to the openning UI.
+  backToGame() {
+    this.showGameResult = false;
+    this.baseService.setUIconfig(this.baseService.getDefaultUIconfig());
   }
 }

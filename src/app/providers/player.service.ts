@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import PLAYER from '../models/player';
 import { Subject } from 'rxjs';
+import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class PlayerService {
   private playersSubject = new Subject<PLAYER[]>();
   private dealer: PLAYER;
 
-  constructor() { 
+  constructor(private baseService: BaseService) { 
     const data = JSON.parse(localStorage.getItem('players'));
     this.players = data ? data.map(d => new PLAYER(d[0], d[1])) : [];
     this.playersSubject.next([...this.players]);
@@ -74,5 +75,34 @@ export class PlayerService {
     newP.setBetting(P.getBetting());
     newP.setPrevResult('');
     return newP;
+  }
+
+  updateInsurance(I, hadBlackjack) {
+    I.forEach(i => {
+      const index = this.players.findIndex(p => p.getName() === i.name);
+      if (index >= 0) {
+        if (i.insured) {
+          if (hadBlackjack) this.players[index].updateAmount(i.betting)
+          else this.players[index].updateAmount(-i.betting/2)
+        }
+      }
+    })
+  }
+
+  updateGameResult(P, gameResult) {
+    P.forEach((p, index) => {
+      const i = this.players.findIndex(pb => pb.getName() === p.getName());
+      if (i >= 0) {
+        if (gameResult[index] > 0) {          // Player won this hand.
+          this.players[i].updateAmount(p.getBetting());
+        } else if (gameResult[index] < 0) {   // Player lost this hand.
+          this.players[i].updateAmount(-p.getBetting());
+          p.setPrevResult('Lost hand!');
+        }
+        this.players[i].setPrevResult(p.getPrevResult());
+        this.players[i].setInitPlayer(this.baseService.getConfig());
+      }
+    });
+    this.updateStorage();
   }
 }
