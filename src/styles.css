@@ -46,6 +46,20 @@ th, td {
 
 #player-list {  width: 340px;  }
 
+.help-menu img { width: 400px; }
+
+.card-images {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-gap: 1px;
+  padding-left: 20px;
+}
+
+.card-images img {
+  width: 90px;
+  border: 1px solod black
+}
+
 .c-red  {  color: red;  }
 .c-blue {  color: blue; }
 .c-black {  color: black;  }

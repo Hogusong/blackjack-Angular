@@ -1,0 +1,26 @@
+span { font-size: 14px; color: red; }
+/* p { text-align: left } */
+
+.player-info {
+  padding-left: 20px;
+}
+
+.player-info span {
+  margin-right: 25px;
+  color: blue;
+}
+
+.btns {
+  margin: 3px 10px;
+}
+
+#btn-game { 
+  /* text-align: center;  */
+  margin: 5px 10px;
+}
+
+.message {
+  padding-left: 20px;
+  font-size: 14px;
+  margin: 0;
+}
