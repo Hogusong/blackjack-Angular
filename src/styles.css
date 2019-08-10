@@ -34,14 +34,13 @@ a { text-decoration: none; }
 table { 
   background: bisque;
   text-align: center;
-  margin: auto;
+  margin-left: 20px;
 }
 
 th, td {
   border: 1px solid black;
-  margin-right: 10px;
   font-size: 16px;
-  padding: 5px 18px;
+  padding: 5px 13px;
 }
 
 #player-list {  width: 340px;  }
@@ -96,4 +95,8 @@ th, td {
   padding-bottom: 16px;
   color: orangered;
   border-bottom: 1px solid lightgray;
+}
+
+@media (max-width: 420px) {
+  .help-menu img { width: 100%; }
 }

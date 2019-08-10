@@ -21,3 +21,17 @@
   color: red;
   font-size: 14px;
 }
+
+@media (max-width: 420px) {
+  #options {
+    width: 96%;
+    margin: 0 auto;
+    padding: 20px 0;
+    font-size: 14px;
+  }
+  .btns {  font-size: 16px; }
+  .error {
+    margin-left: 30px;
+    font-size: 12px;
+  }
+}

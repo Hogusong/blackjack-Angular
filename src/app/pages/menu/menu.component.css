@@ -21,3 +21,22 @@ hr {  margin-top: 6px; }
 
 a {  color: black; font-size: 18px; margin-left: 15px; }
 span { font-size: 18px; margin-right: 12px; }
+
+@media (max-width: 420px) {
+  .main-title {
+    font-size: 20px;
+    color: black;
+  }
+  hr {  margin-top: 6px; }
+  .sub-title {  margin-top: -10px; }
+  .sub-title p {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+  }
+  .navigate {
+    margin: 12px 0 10px 10px;
+  }
+  
+  a {  font-size: 16px; margin-left: 15px; }
+  span { font-size: 16px; margin-right: 12px; }
+}

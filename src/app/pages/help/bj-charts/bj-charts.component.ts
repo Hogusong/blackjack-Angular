@@ -1,18 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BaseService } from 'src/app/providers/base.service';
 
 @Component({
   selector: 'app-bj-charts',
-  templateUrl: './bj-charts.component.html',
-  styleUrls: ['./bj-charts.component.css']
+  templateUrl: './bj-charts.component.html'
 })
-export class BjChartsComponent implements OnInit {
+export class BjChartsComponent {
   @Input() UIC: any;
   
   constructor(private baseService: BaseService) { }
-
-  ngOnInit() {
-  }
 
   backToPreviousUI() {
     this.baseService.setUIconfig(this.UIC);
