@@ -1,0 +1,82 @@
+.sub-title { font-size: 32px;  margin-top: 30px;  }
+span { font-size: 18px; color: red; }
+#dealer-info p { margin: 30px 60px; font-size: 20px; }
+
+
+.player-list {
+  text-align: left;
+  width: 400px;
+  background: bisque;
+  padding: 8px 0 1px 0;
+}
+
+.player-list p {
+  margin: 0;
+  font-size: 18px;
+}
+
+ul {
+  list-style: none;
+  padding: 10px 0 0 30px ;
+}
+
+label {  font-size: 18px; }
+.bet-amt input {
+  width: 110px;
+  padding: 3px 10px;
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+.btn-choice {
+  padding-left: 40px;
+}
+
+.btns {
+  font-size: 18px;
+  margin-bottom: 12px;
+  background: lemonchiffon
+}
+
+.c-blue {  color: blue;  }
+
+@media (max-width: 420px) {
+  .sub-title { font-size: 20px;  margin: 10px;  }
+  span { font-size: 14px; color: red; }
+  #dealer-info p { 
+    text-align: center; 
+    margin: 10px;  
+    font-size: 14px; 
+  }
+  
+  .player-list {
+    width: 96%;
+    margin: auto;
+  }
+  
+  .player-list p {
+    margin: 0;
+    font-size: 15px;
+  }
+
+  ul { padding: 0 0 0 20px; }
+  
+  label { font-size: 14px; }
+  .bet-amt input {
+    width: 80px;
+    padding: 2px 10px;
+    margin-top: 5px;
+    font-size: 14px;
+  }
+
+  .btn-choice {
+    text-align: center;
+    padding: 0;
+    padding-right: 30px;
+  }
+  
+  .btns {
+    font-size: 14px;
+    margin-bottom: 3px;
+  }
+}

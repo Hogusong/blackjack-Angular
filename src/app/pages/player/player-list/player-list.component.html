@@ -1,3 +1,24 @@
-<p>
-  player-list works!
-</p>
+<div id="dealer-info">
+    <h5 class="sub-title">Dealer's Hand &nbsp;<span>( last score : {{dealer.getScore()}} )</span></h5>
+    <p *ngIf="!gameStarted">Joined Players in Game : {{countInPlayers}} &nbsp;&nbsp;&nbsp;&nbsp;</p>
+  </div>
+    
+  <div id="player-info">
+    <h5 class="sub-title">Players List &nbsp;<span>( {{players.length}} players )</span></h5>
+    <div class="player-list">
+      <ul *ngFor="let p of players; let i = index">
+        <p>{{p?.getName()}} - &nbsp;$ {{p?.getAmount()}} in Pocket &nbsp;&nbsp;
+          <span class="{{setColor(i)}}">{{getStatus(i)}}</span>
+        </p>
+        <div class="bet-amt">
+          <label>Bet Amt : $ </label>
+          <input type="number" [(ngModel)]="betAmt[i]" value="{{p?.getBetting()}}" 
+            (change)="updateBetting(i)">&nbsp;&nbsp;&nbsp;{{p?.getPrevResult()}}
+        </div>
+        <div class="btn-choice">
+          <button class="btns" (click)="changeStatus(i, false)">Stay Out</button>
+          <button class="btns" (click)="changeStatus(i, true)">In Play</button>
+        </div>
+      </ul>
+    </div>
+  </div>    
