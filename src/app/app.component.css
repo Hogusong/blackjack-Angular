@@ -21,3 +21,28 @@
 }
 
 .dropdown span {  color: white; font-size: 20px; }
+
+/* Floating Action Buttons */
+#fab {
+  position: absolute;
+  z-index: 9;
+  font-size: 30px;
+  right: 55%;
+  bottom: 300px;
+  text-align: center;
+}
+
+#fab-header {
+  padding: 20px;
+  border-radius: 50%;
+  outline: none;
+  cursor: move;
+  z-index: 10;
+  background-color: #2196F3;
+  color: white;
+}
+
+#fab-header a {
+  list-style: none;
+  color: white;
+}

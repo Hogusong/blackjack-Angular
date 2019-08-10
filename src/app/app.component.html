@@ -39,3 +39,20 @@
     <app-options [UIC]="oldUIC"></app-options>
   </div>
   
+  <div id="fab" [draggable] *ngIf="UIC.selectPlayers">
+      <div id="fab-header"><a (click)="startGame()">Start</a></div>
+    </div>
+    
+    <div id="fab" [draggable] *ngIf="UIC.gameStarted">
+      <div id="fab-header" 
+           (click)="changeAutoPlay(true)"
+           *ngIf="!gameConfig.autoPlay"><a>Auto Play</a></div>
+      <div id="fab-header" 
+          (click)="changeAutoPlay(false)"
+          *ngIf="gameConfig.autoPlay"><a>Stop Auto</a></div>
+    </div>
+    
+    <app-dialog-box *ngIf="dialogBox?.open" 
+                    [markup]="dialogBox.markup"
+                    (onExit)="dialogBox.open = $event"></app-dialog-box>
+                    

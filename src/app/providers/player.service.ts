@@ -8,13 +8,16 @@ import { Subject } from 'rxjs';
 export class PlayerService {
   private players: PLAYER[];
   private playersSubject = new Subject<PLAYER[]>();
+  private dealer: PLAYER;
 
   constructor() { 
     const data = JSON.parse(localStorage.getItem('players'));
     this.players = data ? data.map(d => new PLAYER(d[0], d[1])) : [];
     this.playersSubject.next([...this.players]);
+    this.dealer = new PLAYER('Dealer', 10000000, true);
   }
 
+  getDealer() {  return this.dealer;  }
   getPlayers() { return [...this.players];  }
   getPlayersSubject() {  return this.playersSubject.asObservable();  }
 
@@ -44,5 +47,13 @@ export class PlayerService {
 
   isNewName(name) {
     return this.players.findIndex(p => p.getName() === name) < 0;
+  }
+  
+  countInPlayers() {
+    let count = 0;
+    this.players.forEach(p => {
+      if (p.getInPlay() && p.getAmount() >= p.getBetting()) count ++;
+    });
+    return count;
   }
 }
