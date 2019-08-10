@@ -48,12 +48,31 @@ export class PlayerService {
   isNewName(name) {
     return this.players.findIndex(p => p.getName() === name) < 0;
   }
-  
+
   countInPlayers() {
     let count = 0;
     this.players.forEach(p => {
       if (p.getInPlay() && p.getAmount() >= p.getBetting()) count ++;
     });
     return count;
+  }
+
+  // Collect all valid players and return the list for the game.
+  // Whoelse select 'in-play' option and pocket amount >= betting amount.
+  getActivePlayers() {
+    let inPlayers = [];
+    this.players.forEach((p) => {
+      if (p.getInPlay()) {
+        if (p.getAmount() >= p.getBetting()) inPlayers.push(this.clonePlayer(p));  
+      } else p.setPrevResult("didn't play");
+    });
+    return [...inPlayers];
+  }
+
+  clonePlayer(P) {
+    const newP = new PLAYER(P.getName(), P.getAmount(), true);
+    newP.setBetting(P.getBetting());
+    newP.setPrevResult('');
+    return newP;
   }
 }

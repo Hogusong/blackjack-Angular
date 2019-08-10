@@ -23,6 +23,12 @@ export class CardService {
   getCards() {
     return [...this.cards];
   }
+
+  drawCard(player) {
+    if (!player.getInPlay()) return;
+    const card = this.cards.pop();
+    player.addOnHand(card);      // Add the drawn card to the player's hand.
+  }
 }
 
 function buildDeck() {
