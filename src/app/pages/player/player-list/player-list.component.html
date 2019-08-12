@@ -12,7 +12,7 @@
         </p>
         <div class="bet-amt">
           <label>Bet Amt : $ </label>
-          <input type="number" [(ngModel)]="betAmt[i]" value="{{p?.getBetting()}}" 
+          <input type="number" [(ngModel)]="betAmt[i]" value="{{betAmt[i]}}" 
             (change)="updateBetting(i)">&nbsp;&nbsp;&nbsp;{{p?.getPrevResult()}}
         </div>
         <div class="btn-choice">

@@ -24,10 +24,14 @@ export class PlayerListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.dealer = this.playerService.getDealer();
     this.players = this.playerService.getPlayers();
+    this.config = this.baseService.getConfig();
     // Count players who are in 'in-play' mode and amount >= betting.
     this.countInPlayers = this.playerService.countInPlayers();
-    this.betAmt = this.players.map(p => p.getBetting());
-    this.config = this.baseService.getConfig();
+    this.betAmt = this.players.map(p => {
+      if (p.getBetting() > this.config.minBetting) return p.getBetting();
+      return this.config.minBetting;
+    });
+    
     this.configSub = this.baseService.getConfigSubject()
       .subscribe(res => {
         this.config = res;
@@ -36,7 +40,10 @@ export class PlayerListComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         this.players = res;
         this.countInPlayers = this.playerService.countInPlayers();
-        this.betAmt = this.players.map(p => p.getBetting());
+        this.betAmt = this.players.map(p => {
+          if (p.getBetting() > this.config.minBetting) return p.getBetting();
+          return this.config.minBetting;
+        });
       });
     // Start a new game automatically when 'AutoPlay = true' and valid player exist.
     if (this.config.autoPlay && this.playerService.countInPlayers() > 0 ) {
