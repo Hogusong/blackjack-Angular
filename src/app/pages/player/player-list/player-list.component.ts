@@ -28,10 +28,10 @@ export class PlayerListComponent implements OnInit, OnDestroy {
     // Count players who are in 'in-play' mode and amount >= betting.
     this.countInPlayers = this.playerService.countInPlayers();
     this.betAmt = this.players.map(p => {
-      if (p.getBetting() > this.config.minBetting) return p.getBetting();
-      return this.config.minBetting;
+      if (p.getBetting() < this.config.minBetting) return this.config.minBetting;
+      return p.getBetting();
     });
-    
+
     this.configSub = this.baseService.getConfigSubject()
       .subscribe(res => {
         this.config = res;
@@ -41,8 +41,8 @@ export class PlayerListComponent implements OnInit, OnDestroy {
         this.players = res;
         this.countInPlayers = this.playerService.countInPlayers();
         this.betAmt = this.players.map(p => {
-          if (p.getBetting() > this.config.minBetting) return p.getBetting();
-          return this.config.minBetting;
+          if (p.getBetting() < this.config.minBetting) return this.config.minBetting;
+          return p.getBetting();
         });
       });
     // Start a new game automatically when 'AutoPlay = true' and valid player exist.
@@ -56,8 +56,9 @@ export class PlayerListComponent implements OnInit, OnDestroy {
   }
 
   // Toggle the status of 'in-play' mode.
-  changeStatus(index, status) {
-    this.players[index].setInPlay(status);
+  changeStatus(i, status) {
+    this.players[i].setInPlay(status);
+    if (status)     this.players[i].setBetting(this.betAmt[i]);
     this.playerService.updatePlayer([...this.players]);
     this.countInPlayers = this.playerService.countInPlayers();
   }
